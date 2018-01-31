@@ -64,3 +64,50 @@ select OrderDate,
 		DATENAME(weekday, OrderDate) as OrderWeekDay
 from Sales.SalesOrderHeader
 where SalesOrderID in (43659, 43714, 60621);
+
+/**
+* DAY, MONTH, YEAR : Estas funciones trabajan como DATEPART, estas funciones son una alternativa para obtener
+* el day, month y year de una fecha
+* DAY(<date>)
+* MONTH(<date>)
+* YEAR(<date>)
+*/
+--1.
+select OrderDate, YEAR(OrderDate) as OrderYear,
+	MONTH(OrderDate) as OrderMonth,
+	DAY(OrderDate) as OrderDay
+from Sales.SalesOrderHeader
+where SalesOrderID in (43659, 43714, 60621);
+
+/**
+* CONVERT: Es una funcion con una parametro opcional llamado style que puede ser usado para formatear una
+* fecha o numero.
+* CONVERT(<data type, usualmente varchar>, <date>, <style>)
+*/
+--1 de la forma dura
+select  CAST(DATEPART(YYYY, GETDATE()) as varchar) + '/' +
+	CAST(DATEPART(MM, GETDATE()) as varchar) + '/' +
+	CAST(DATEPART(DD, GETDATE()) as varchar) as DateCast;
+
+--2 la forma sencilla
+select CONVERT(varchar, GETDATE(), 111) as DateConvert;
+
+--3 
+select  CONVERT(varchar, OrderDate, 1) as "1",
+		CONVERT(varchar, OrderDate, 101) as "101",
+		CONVERT(varchar, OrderDate, 2) as "2",
+		CONVERT(varchar, OrderDate, 102) as "102"
+from Sales.SalesOrderHeader
+where SalesOrderID in (43659, 43714, 60621);
+
+
+/**
+* FORMAT : Esta funcion simplifica la conversion de un valor date/time. Otro proposito
+* es convertir date/time en su valor cultural equivalente.
+* FORMAT(value, format[, culture])
+*/
+DECLARE @d DATETIME = GETDATE();
+SELECT FORMAT(@d, 'dd', 'en-US') as Result;
+select FORMAT(@d, 'yyyy-M-d') as Result;
+select FORMAT(@d, 'MM/dd/yyyy', 'en-US') as Result;
+
