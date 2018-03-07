@@ -111,3 +111,17 @@ SELECT FORMAT(@d, 'dd', 'en-US') as Result;
 select FORMAT(@d, 'yyyy-M-d') as Result;
 select FORMAT(@d, 'MM/dd/yyyy', 'en-US') as Result;
 
+/**
+* DATEFROMPARTS
+*/
+SELECT DATEFROMPARTS(2012, 3, 10) as result; /* return only date */
+select TIMEFROMPARTS(12, 10, 32, 0, 0) as result; /* return time */
+select DATETIME2FROMPARTS(2012, 3, 10, 12, 10, 32, 0, 0) as result; /* return date and time */
+
+/**
+* EOMONTH: Retorna la fecha del ultimo dia pasando el mes como argumento. 
+*/
+SELECT EOMONTH(GETDATE()) AS [END OF THIS MONTH],
+	   EOMONTH(GETDATE(), 1) AS [END OF NEXT MONTH],
+	   EOMONTH('2009-01-01') AS [ANOTHER MONTH];
+
